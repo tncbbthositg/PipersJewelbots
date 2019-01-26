@@ -5,22 +5,20 @@ Timer timer;
 Buzzer buzzer;
 Animation animation;
 
-const int TEMPO = 260;
-const int QUARTER_NOTE = 60000 / TEMPO;
 const int TIME_BETWEEN_NOTES = 60;
 
-struct LightShow {
+struct LightScene {
   ColorLabel sw;
   ColorLabel nw;
   ColorLabel ne;
   ColorLabel se;
 };
 
-const LightShow LIGHT_SHOWS[] = {
+char* WAR_EAGLE = "whhqhqH rq qhqhhqhqH rq whhqhqH rq qhqqqhq rq >h>h>h HqhhqhqH rq qqhqqhqhqq rq >q rq whhhhhhqhqhh 5q rqrh";
+const LightScene AUBURN_LIGHT_SHOW[] = {
   { ORANGE, BLUE, ORANGE, BLUE },
   { BLUE, ORANGE, BLUE, ORANGE },
 };
-const int LIGHT_SHOW_COUNT = sizeof(LIGHT_SHOWS) / sizeof(LIGHT_SHOWS[0]);
 
 int lightShowIndex = -0;
 
@@ -31,16 +29,19 @@ void loop() {
 }
 
 void button_press(void) {
-  playSong("whhqhqH rq qhqhhqhqH rq whhqhqH rq qhqqqhq rq >h>h>h HqhhqhqH rq qqhqqhqhqq rq >q rq whhhhhhqhqhh 5q rqrh");
+  playSong(260, WAR_EAGLE);
 }
 
 void button_press_long(void) {
 }
 
 void charging_button_press(void) {
+  button_press();
 }
 
-void playSong(const char* song) {
+void playSong(int tempo, const char* song) {
+  const int quarterNote = 60000 / tempo;
+
   for (int i = 0; i < strlen(song); ++i) {
     char note = song[i];
     if (note == ' ') { continue; }
@@ -62,17 +63,15 @@ void playSong(const char* song) {
       note = song[++i];
     }
 
-    int duration = getNoteDuration(note);
-    duration *= multiplier;
-    
+    double duration = quarterNote * getNoteDuration(note) * multiplier;
     playNote(duration, isRest, isAccented);
   }
 
   led.turn_off_all();
 }
 
-int getNoteDuration(char note) {
-  int duration = QUARTER_NOTE;
+double getNoteDuration(char note) {
+  double duration = 1.0;
 
   switch(note) {
     case 'S':
@@ -123,13 +122,15 @@ void playNote(int duration, bool isRest, bool isAccented) {
 }
 
 void cycleLightShow() {
+  int lightShowSize = sizeof(AUBURN_LIGHT_SHOW) / sizeof(AUBURN_LIGHT_SHOW[0]);
+
   ++lightShowIndex;
-  lightShowIndex %= LIGHT_SHOW_COUNT;
+  lightShowIndex %= lightShowSize;
 
-  LightShow lightShow = LIGHT_SHOWS[lightShowIndex];
+  LightScene lightScene = AUBURN_LIGHT_SHOW[lightShowIndex];
 
-  led.turn_on_single(SW, lightShow.sw);
-  led.turn_on_single(NW, lightShow.nw);
-  led.turn_on_single(NE, lightShow.ne);
-  led.turn_on_single(SE, lightShow.se);
+  led.turn_on_single(SW, lightScene.sw);
+  led.turn_on_single(NW, lightScene.nw);
+  led.turn_on_single(NE, lightScene.ne);
+  led.turn_on_single(SE, lightScene.se);
 }
