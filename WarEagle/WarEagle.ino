@@ -1,6 +1,8 @@
 #include <ctype.h>;
 #include "src/Song.h";
 
+#define ARRAY_SIZE(array) sizeof(array) / sizeof(array[0])
+
 Animation animation;
 
 Song warEagle(280, "whhqhqH rq qhqhhqhqH rq whhqhqH rq qhqqqhq rq >h>h>h HqhhqhqH rq qqhqqhqhqq rq >q rq whhhhhhqhqhh 5q rqrh");
@@ -45,14 +47,44 @@ const LightScene AUBURN_LIGHT_SHOW[] = {
   { ORANGE, ORANGE, ORANGE, ORANGE },
 };
 
+Song letItGo(138, "ee6e ee5e re eeqeeqqqeq re ee6e ee7e eqqQq8e >Q>Q>4q q>Q>Q>4q ee>Q>Q>8q eqeeeeeee e7e");
+const LightScene LET_IT_GO_LIGHT_SHOW[] = {
+  { PURPLE, OFF, OFF, OFF },
+  { PURPLE, PURPLE, OFF, OFF },
+  { PURPLE, PURPLE, PURPLE, OFF },
+  { PURPLE, PURPLE, PURPLE, PURPLE },
+
+  { PURPLE, BLUE, PURPLE, PURPLE },
+  { PURPLE, PURPLE, PURPLE, BLUE },
+  { BLUE, PURPLE, PURPLE, PURPLE },
+  { PURPLE, PURPLE, BLUE, PURPLE },
+  { PURPLE, BLUE, PURPLE, PURPLE },
+  { PURPLE, PURPLE, PURPLE, BLUE },
+  { BLUE, PURPLE, PURPLE, PURPLE },
+  { PURPLE, PURPLE, BLUE, PURPLE },
+
+  { OFF, OFF, OFF, OFF },  
+  { OFF, WHITE, OFF, OFF },  
+  { OFF, OFF, OFF, WHITE },  
+  { OFF, OFF, WHITE, OFF },  
+  { OFF, OFF, OFF, WHITE },  
+  { WHITE, OFF, OFF, OFF },  
+  { OFF, OFF, WHITE, OFF },  
+  { OFF, WHITE, OFF, OFF },  
+  { OFF, OFF, OFF, WHITE },  
+  { OFF, OFF, OFF, OFF },  
+};
+
 void setup() {
-  warEagle.addLightShow(sizeof(AUBURN_LIGHT_SHOW) / sizeof(AUBURN_LIGHT_SHOW[0]), AUBURN_LIGHT_SHOW);
+  warEagle.addLightShow(ARRAY_SIZE(AUBURN_LIGHT_SHOW), AUBURN_LIGHT_SHOW);
+  letItGo.addLightShow(ARRAY_SIZE(LET_IT_GO_LIGHT_SHOW), LET_IT_GO_LIGHT_SHOW);
 }
 
 void loop() {
 }
 
 void button_press(void) {
+//  letItGo.play();
   warEagle.play();
 }
 
