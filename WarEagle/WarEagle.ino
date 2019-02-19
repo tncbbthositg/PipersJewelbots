@@ -73,6 +73,13 @@ const LightScene LET_IT_GO_LIGHT_SHOW[] = {
   { OFF, OFF, OFF, WHITE },  
 };
 
+const char* JINGLE_BELLS = "qqqqH eeqqqqw qqqqw qqqqw qqqqw qqqqH qqqqqqqqqqqqqq rq >h qqh qqh qqQew qqqqqqqee qqqqh >h qqh qqh qqQew qqqqqqqee >q >q >q >q w";
+Song jingleBells(200, JINGLE_BELLS);
+const LightScene CHRISTMAS[] = {
+  { RED, GREEN, RED, GREEN },
+  { GREEN, RED, GREEN, RED }
+};
+
 Song* songs[] = { &warEagle, &letItGo };
 const unsigned int songCount = ARRAY_SIZE(songs);
 int currentSong = -1;
@@ -80,6 +87,7 @@ int currentSong = -1;
 void setup() {
   warEagle.addLightShow(ARRAY_SIZE(AUBURN_LIGHT_SHOW), AUBURN_LIGHT_SHOW);
   letItGo.addLightShow(ARRAY_SIZE(LET_IT_GO_LIGHT_SHOW), LET_IT_GO_LIGHT_SHOW);
+  jingleBells.addLightShow(ARRAY_SIZE(CHRISTMAS), CHRISTMAS);
 }
 
 void loop() {
