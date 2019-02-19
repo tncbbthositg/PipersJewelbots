@@ -63,7 +63,6 @@ const LightScene LET_IT_GO_LIGHT_SHOW[] = {
   { BLUE, PURPLE, PURPLE, PURPLE },
   { PURPLE, PURPLE, BLUE, PURPLE },
 
-  { OFF, OFF, OFF, OFF },  
   { OFF, WHITE, OFF, OFF },  
   { OFF, OFF, OFF, WHITE },  
   { OFF, OFF, WHITE, OFF },  
@@ -72,8 +71,11 @@ const LightScene LET_IT_GO_LIGHT_SHOW[] = {
   { OFF, OFF, WHITE, OFF },  
   { OFF, WHITE, OFF, OFF },  
   { OFF, OFF, OFF, WHITE },  
-  { OFF, OFF, OFF, OFF },  
 };
+
+Song* songs[] = { &warEagle, &letItGo };
+const unsigned int songCount = ARRAY_SIZE(songs);
+int currentSong = -1;
 
 void setup() {
   warEagle.addLightShow(ARRAY_SIZE(AUBURN_LIGHT_SHOW), AUBURN_LIGHT_SHOW);
@@ -84,8 +86,10 @@ void loop() {
 }
 
 void button_press(void) {
-//  letItGo.play();
-  warEagle.play();
+  currentSong = ++currentSong % songCount;
+  Song* song = songs[currentSong];
+
+  song->play();
 }
 
 void button_press_long(void) {

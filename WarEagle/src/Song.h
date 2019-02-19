@@ -19,7 +19,7 @@ class Song {
     
     const LightScene* lightShow;
     unsigned int lightShowSize = 0;
-    unsigned int lightShowIndex = -1;
+    unsigned int lightShowIndex = 0;
 
     double getNoteDuration(char note);
     void playNote(unsigned int duration, bool isRest, bool isAccented);

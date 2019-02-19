@@ -99,13 +99,12 @@ void Song::playNote(unsigned int duration, bool isRest, bool isAccented) {
 }
 
 void Song::cycleLightShow() {
-  ++lightShowIndex;
-  lightShowIndex %= lightShowSize;
-
   LightScene lightScene = lightShow[lightShowIndex];
 
   led.turn_on_single(SW, lightScene.sw);
   led.turn_on_single(NW, lightScene.nw);
   led.turn_on_single(NE, lightScene.ne);
   led.turn_on_single(SE, lightScene.se);
+
+  lightShowIndex = ++lightShowIndex % lightShowSize;
 }
