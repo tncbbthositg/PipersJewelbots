@@ -16,6 +16,7 @@ void Song::addLightShow(unsigned int lightShowSize, const LightScene* lightShow)
 
 void Song::play() {
   const int quarterNote = 60000 / tempo;
+  lightShowIndex = 0;
 
   for (int i = 0; i < strlen(music); ++i) {
     char note = music[i];
